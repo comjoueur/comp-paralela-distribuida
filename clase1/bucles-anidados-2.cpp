@@ -1,9 +1,8 @@
 #include<iostream>
+#define MAX 300
 using namespace std;
 
 int main() {
-  int MAX;
-  cin >>MAX;
 
   double A[MAX][MAX], x[MAX], y[MAX];
 

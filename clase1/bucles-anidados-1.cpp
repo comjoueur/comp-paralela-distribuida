@@ -1,10 +1,8 @@
 #include<iostream>
+#define MAX 400
 using namespace std;
 
 int main() {
-  int MAX;
-  cin >>MAX;
-
   double A[MAX][MAX], x[MAX], y[MAX];
 
   for (int i = 0;i < MAX; i++) {

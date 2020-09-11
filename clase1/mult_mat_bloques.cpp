@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#define MAX 100
+#define MAX 400
 using namespace std;
 
 void print_matrix(int mat[MAX][MAX]) {
