@@ -6,14 +6,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "mpi.h"
-#define TOTAL_SIZE 16
+#define TOTAL_SIZE 4096
 #define ROOT 0
 
 int num_process = 0;
 int rank = 0;
 int block_size = 0;
 
-void bubble_sort(int arr[], int size) {
+void sort_bubble(int arr[], int size) {
   int i,j,tmp;
   for(i=0;i<size;++i){
     for(j=0;j<size-1;++j){
@@ -76,18 +76,16 @@ int main(int argc, char **argv) {
 
   int local_arr[block_size];
 
-  MPI_Scatter(arr, block_size, MPI_INT, local_arr, block_size, MPI_INT, ROOT, MPI_COMM_WORLD);
-  bubble_sort(local_arr, block_size);
-  MPI_Allgather(local_arr, block_size, MPI_INT, arr, block_size, MPI_INT, MPI_COMM_WORLD);
+  double start = MPI_Wtime();
 
-  if (rank == ROOT){
-    print(arr, TOTAL_SIZE);
-  }
+  MPI_Scatter(arr, block_size, MPI_INT, local_arr, block_size, MPI_INT, ROOT, MPI_COMM_WORLD);
+  sort_bubble(local_arr, block_size);
+  MPI_Allgather(local_arr, block_size, MPI_INT, arr, block_size, MPI_INT, MPI_COMM_WORLD);
 
   int new_local_arr[block_size];
   int near_local_arr[block_size];
 
-  for(int phase = 0; phase < 2; phase++) {
+  for(int phase = 0; phase < num_process; phase++) {
     if (phase % 2 == 0) {
       if (rank % 2 == 0) {
         assign(arr, new_local_arr, rank * block_size, (rank + 1) * block_size);
@@ -122,6 +120,10 @@ int main(int argc, char **argv) {
     }
     MPI_Allgather(new_local_arr, block_size, MPI_INT, arr, block_size, MPI_INT, MPI_COMM_WORLD);
   }
+
+  double end = MPI_Wtime();
+
+  printf("%f seconds in process %d\n", end-start, rank);
 
 	MPI_Finalize();
 }
