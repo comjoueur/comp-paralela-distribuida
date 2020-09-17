@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
   int new_local_arr[block_size];
   int near_local_arr[block_size];
 
-  for(int phase = 0; phase < 2; phase++) {
+  for(int phase = 0; phase < num_process; phase++) {
     if (phase % 2 == 0) {
       if (rank % 2 == 0) {
         assign(arr, new_local_arr, rank * block_size, (rank + 1) * block_size);
