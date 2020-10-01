@@ -1,5 +1,5 @@
-//g++ main.cpp -pthread -o main
-//./main 4 
+//g++ prod-cons.cpp -pthread -o prod-cons
+//./prod-cons 4 
 
 #include <bits/stdc++.h>
 #include <pthread.h>

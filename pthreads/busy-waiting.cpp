@@ -1,5 +1,5 @@
-//g++ main.cpp -pthread -o main
-//./main 4 
+//g++ busy-waiting.cpp -pthread -o busy-waiting
+//./busy-waiting 4 
 
 #include <bits/stdc++.h>
 #include <pthread.h>

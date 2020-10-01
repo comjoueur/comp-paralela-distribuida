@@ -1,5 +1,5 @@
-//g++ mutex.cpp -pthread -o mutex
-//./mutex 4
+//g++ barriers.cpp -pthread -o barriers
+//./barriers 4
 
 #include <bits/stdc++.h>
 #include <pthread.h>
@@ -51,6 +51,7 @@ void *thread_sum_BW(void *rank)
   pthread_mutex_unlock(&BW_mutex);
   while (counter < thread_count)
     ;
+  cout<<"All in the same moment"<<endl;
   return NULL;
 }
 
@@ -89,6 +90,7 @@ void *thread_sum_Sem(void *rank)
     sem_post(&count_sem);
     sem_wait(&barrier_sem);
   }
+  cout<<"All in the same moment"<<endl;
   return NULL;
 }
 
@@ -125,6 +127,7 @@ void *thread_sum_CV(void *rank)
     while (pthread_cond_wait(&cond_var, &CV_mutex) != 0);
   }
   pthread_mutex_unlock(&CV_mutex);
+  cout<<"All in the same moment"<<endl;
   return NULL;
 }
 
