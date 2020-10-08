@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "thread": "cpp"
+    "thread": "cpp",
+    "shared_mutex": "cpp",
+    "ostream": "cpp"
   }
 }
